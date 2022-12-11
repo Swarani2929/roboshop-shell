@@ -33,8 +33,19 @@ if [ $? -eq 0 ]; then
   exit
 fi
 
+systemctl enable mysqld
+if [ $? -eq 0 ]; then
+  echo Enabled mysql
+  else
+  echo Failure
+  exit
+fi
 
+systemctl restart mysqld
 
-# systemctl enable mysqld
-# systemctl start mysqld
-
+if [ $? -eq 0 ]; then
+  echo Restarted mysql
+  else
+  echo Failure
+  exit
+fi
