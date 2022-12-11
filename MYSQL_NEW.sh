@@ -49,3 +49,5 @@ if [ $? -eq 0 ]; then
   echo Failure
   exit
 fi
+
+echo hello
