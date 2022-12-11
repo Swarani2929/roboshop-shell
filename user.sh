@@ -9,6 +9,7 @@ rm -rf user
 unzip -o /tmp/user.zip
 mv user-main user
 cd /home/roboshop/user
+
 npm install
 
 sed -i -e 's/REDIS_ENDPOINT/redis.devops25.online/' -e 's/MONGO_ENDPOINT/mongo.devops25.online/' systemd.service
