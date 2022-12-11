@@ -50,4 +50,5 @@ if [ $? -eq 0 ]; then
   exit
 fi
 
-echo hello
+echo hello world
+
