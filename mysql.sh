@@ -7,11 +7,25 @@ if [ $? -eq 0 ]; then
   else
   echo Failure
   exit
-
 fi
+
 dnf module disable mysql
 
+if [ $? -eq 0 ]; then
+  echo Success
+  else
+  echo Failure
+  exit
+fi
+
 yum install mysql-community-server -y
+
+if [ $? -eq 0 ]; then
+  echo Success
+  else
+  echo Failure
+  exit
+fi
 
 # systemctl enable mysqld
 # systemctl start mysqld
