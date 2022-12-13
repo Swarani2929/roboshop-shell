@@ -5,7 +5,9 @@ STAT() {
     echo Failure
     exit
   fi
-
+}
+PRINT() {
+  echo -e "\e[33m$1\e[0m"
 }
 
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
