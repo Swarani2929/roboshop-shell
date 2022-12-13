@@ -1,5 +1,8 @@
 source common.sh
-if [-z "$1"]; then
+
+if [-z "$1"]
+
+then
   echo Input argument password is needed
   exit
 fi
@@ -35,3 +38,4 @@ then
   echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${ROBOSHOP_MYSQL_PASSWORD}';" > /tmp/root-pass-sql
   DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
   cat /tmp/root-pass-sql | mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}"
+fi
