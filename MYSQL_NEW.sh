@@ -3,17 +3,7 @@ if [-z "$1"]; then
   echo Input argument password is needed
   exit
 fi
-STAT() {
-  if [ $? -eq 0 ]; then
-    echo Success
-    else
-    echo Failure
-    exit
-  fi
-}
-PRINT() {
-  echo -e "\e[33m$1\e[0m"
-}
+
 PRINT "Downloading MYSQL Repo files"
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
 STAT $?
