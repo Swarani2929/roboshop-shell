@@ -12,3 +12,6 @@ unzip /tmp/frontend.zip
 
 
 systemctl restart nginx
+
+# Roboshop config is not updated
+## running the script as sudo user
