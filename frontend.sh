@@ -12,5 +12,5 @@ cp configs/nginx-roboshop.config /etc/nginx/default.d/roboshop.conf
 systemctl enable nginx
 systemctl restart nginx
 
-# Roboshop config is not updated
+
 ## running the script as sudo user
