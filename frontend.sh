@@ -7,8 +7,10 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.z
 cd /usr/share/nginx/html
 unzip /tmp/frontend.zip
 
+cp configs/nginx-roboshop.config /etc/nginx/default.d/roboshop.conf
+
 systemctl enable nginx
-systemctl start nginx
+systemctl restart nginx
 
 # Roboshop config is not updated
 ## running the script as sudo user
