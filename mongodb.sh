@@ -1,15 +1,15 @@
 source common.sh
 
 print_head "setup MOngodb Repo"
-cp configs/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
 
 print_head "Install MOngodb"
-yum install mongodb-org -y
+yum install mongodb-org -y &>>${log_file}
 
 print_head "Enable MOngodb"
-systemctl enable mongod
+systemctl enable mongod &>>${log_file}
 
 print_head "Start MOngodb Service"
-systemctl start mongod
+systemctl start mongod &>>${log_file}
 
 # Update config file from 127.0.0.1 with 0.0.0.0
