@@ -14,7 +14,7 @@ mkdir /app &>>${log_file}
 print_head "Delete Old content"
 rm -rf /app/*  &>>${log_file}
 
-print_head"Downloading App Content"
+print_head "Downloading App Content"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>${log_file}
 cd /app
 
