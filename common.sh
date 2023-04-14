@@ -17,8 +17,7 @@ else
 fi
 }
 
-schema_setup{
-
+schema_setup() {
   print_head "Copy mongodb repo"
     cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
     status_check $?
@@ -88,5 +87,5 @@ nodejs() {
   systemctl restart ${component} &>>${log_file}
   status_check $?
 
-
+schema_setup
 }
