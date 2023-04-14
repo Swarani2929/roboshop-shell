@@ -49,16 +49,16 @@ schema_setup() {
     mongo --host mongodb.devops25.online </app/schema/${component}.js &>>${log_file}
     status_check $?
   elfi [ "${schema_type}" == "mysql" ]; then
-      print_head "Installing mysql"
-      yum install mysql -y &>>${log_file}
-      status_check $?
+    print_head "Installing mysql"
+    yum install mysql -y &>>${log_file}
+    status_check $?
 
-      print_head "Load Schema"
-      mysql -h mysql.devops25.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>${log_file}
-      status_check $?
-      print_head "Restart ${component}"
-      systemctl restart ${component} &>>${log_file}
-      status_check $?
+    print_head "Load Schema"
+    mysql -h mysql.devops25.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>${log_file}
+    status_check $?
+    print_head "Restart ${component}"
+    systemctl restart ${component} &>>${log_file}
+    status_check $?
 
   fi
 }
