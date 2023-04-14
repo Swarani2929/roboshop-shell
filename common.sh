@@ -35,6 +35,7 @@ systemd_setup() {
 }
 schema_setup() {
 
+  # shellcheck disable=SC1046
   if [ "${schema_type}" == "mongo" ]; then
   print_head "Copy mongodb repo"
     cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
@@ -47,7 +48,7 @@ schema_setup() {
     print_head "Load Schema"
     mongo --host mongodb.devops25.online </app/schema/${component}.js &>>${log_file}
     status_check $?
-    elfi [ "${schema_type}" == "mysql" ]; then
+  elfi [ "${schema_type}" == "mysql" ]; then
       print_head "Installing mysql"
       yum install mysql -y &>>${log_file}
       status_check $?
