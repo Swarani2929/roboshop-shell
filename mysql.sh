@@ -20,6 +20,6 @@ print_head "Enabling mysqld"
 systemctl start mysqld &>>${log_file}
 status_check $?
 
-print_head"Set Password"
+print_head "Set Password"
 mysql_secure_installation --set-root-pass RoboShop@1 &>>${log_file}
 status_check $?
