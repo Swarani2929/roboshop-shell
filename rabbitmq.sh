@@ -1,7 +1,11 @@
 source common.sh
 component=rabbitmq
 
-
+Roboshop_app_password=$1
+if [ -z "${Roboshop_app_password}" ]; then
+  echo -e "\e[31mMissing Roboshop app Password argument\e[0m"
+  exit 1
+fi
 print_head "Setup Erlang Repos"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>{log_fine}
 status_check $?
@@ -16,9 +20,16 @@ status_check $?
 
 print_head "Start Rabbitmq service"
 systemctl enable rabbitmq-server &>>{log_fine}
+status_check $?
 
 print_head "Start rabbitmq service"
 systemctl start rabbitmq-server &>>{log_fine}
+status_check $?
 
-rabbitmqctl add_user roboshop roboshop123
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+print_head "Add Application user"
+rabbitmqctl add_user roboshop ${Roboshop_app_password} &>>{log_fine}
+status_check $?
+
+print_head "configure set_permissions"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>{log_fine}
+status_check $?
