@@ -27,7 +27,7 @@ NODEJS() {
   yum install nodejs -y &>>${log_file}
   status_check $?
 
-  print_head "Create Roboshop {component}"
+  print_head "Create Roboshop ${component}"
   id roboshop &>>{log_file}
   if [ $? -ne 0 ]; then
    useradd roboshop &>>${log_file}
@@ -51,7 +51,7 @@ NODEJS() {
   cd /app
 
   print_head "Extracting App Content"
-  unzip /tmp/{component}.zip &>>${log_file}
+  unzip /tmp/${component}.zip &>>${log_file}
   status_check $?
 
   print_head "Installing Nodejs dependencies"
@@ -59,19 +59,19 @@ NODEJS() {
   status_check $?
 
   print_head "Copy systemd service file"
-  cp ${code_dir}/configs/{component}.service /etc/systemd/system/{component}.service &>>${log_file}
+  cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
   status_check $?
 
   print_head "Reload systemd"
   systemctl daemon-reload &>>${log_file}
   status_check $?
 
-  print_head "Enable {component} Service"
-  systemctl enable {component} &>>${log_file}
+  print_head "Enable ${component} Service"
+  systemctl enable ${component} &>>${log_file}
   status_check $?
 
-  print_head "Enable {component} Service"
-  systemctl restart {component} &>>${log_file}
+  print_head "Enable ${component} Service"
+  systemctl restart ${component} &>>${log_file}
   status_check $?
 
   print_head "Copy mongodb repo"
