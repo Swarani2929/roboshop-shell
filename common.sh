@@ -113,7 +113,7 @@ nodejs() {
 schema_setup
 }
 
-java () {
+java() {
   print_head "Install maven"
   yum install maven -y &>>${log_file}
   status_check $?
