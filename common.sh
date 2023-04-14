@@ -33,10 +33,16 @@ schema_setup() {
     status_check $?
     elfi [ "${schema_type}" == "mysql" ]; then
       print_head "Installing mysql"
-      yum install mysql -y
+      yum install mysql -y &>>${log_file}
       status_check $?
-      mysql -h mysql.devops25.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
-      systemctl restart shipping
+
+      print_head "Load Schema"
+      mysql -h mysql.devops25.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>${log_file}
+      status_check $?
+      print_head "Restart ${component}"
+      systemctl restart ${component} &>>${log_file}
+      status_check $?
+
       fi
 }
 
@@ -107,14 +113,17 @@ schema_setup
 
 java () {
   print_head "Install maven"
-  yum install maven -y
+  yum install maven -y &>>${log_file}
   status_check $?
   print_head "Add Roboshop user"
 
   app_prereq_setup
 
-  mvn clean package
-  mv target/shipping-1.0.jar shipping.jar
+  print_head "Downloading dependencies & Package"
+  mvn clean package &>>${log_file}
+  mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
+  status_check $?
+
   schema_setup
   systemctl daemon-reload
   systemctl enable shipping
