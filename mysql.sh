@@ -20,6 +20,6 @@ print_head "Starting mysql service"
 systemctl start mysqld &>>${log_file}
 status_check $?
 
-print_head "Reset password from default password"
+print_head "set password from default password"
 mysql_secure_installation --set-root-pass RoboShop@1 &>>${log_file}
 status_check $?
