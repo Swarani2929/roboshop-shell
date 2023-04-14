@@ -17,7 +17,7 @@ else
 fi
 }
 
-NODEJS() {
+nodejs() {
 
   print_head " Configure the Repo"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
