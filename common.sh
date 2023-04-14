@@ -127,9 +127,6 @@ java () {
   status_check $?
 
   schema_setup
-  systemctl daemon-reload
-  systemctl enable shipping
-  systemctl start shipping
-
-
+  systemd_setup
+ 
 }
