@@ -157,8 +157,8 @@ golang() {
 
     print_head "Downloading dependencies & Package"
     cd /app
-    go mod init dispatch
-    go get
+    go mod init dispatch &>>{log_file}
+    go get &>>{log_file}
     go build &>>{log_file}
     status_check $?
 
