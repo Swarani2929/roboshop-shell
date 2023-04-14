@@ -125,8 +125,10 @@ java () {
   mvn clean package &>>${log_file}
   mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
   status_check $?
-
+#Schema setup function
   schema_setup
+
+#systemd setup function
   systemd_setup
- 
+
 }
