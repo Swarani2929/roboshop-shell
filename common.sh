@@ -60,7 +60,7 @@ schema_setup() {
       systemctl restart ${component} &>>${log_file}
       status_check $?
 
-      fi
+  fi
 }
 
 app_prereq_setup() {
