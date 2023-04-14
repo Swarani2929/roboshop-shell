@@ -31,19 +31,18 @@ schema_setup() {
     print_head "Load Schema"
     mongo --host mongodb.devops25.online </app/schema/${component}.js &>>${log_file}
     status_check $?
-    fi
+    elfi [ "${schema_type}" == "mysql" ]; then
+      print_head "Installing mysql"
+      yum install mysql -y
+      status_check $?
+      mysql -h mysql.devops25.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
+      systemctl restart shipping
+      fi
 }
-nodejs() {
 
-  print_head " Configure the Repo"
-  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
-  status_check $?
+app_prereq_setup() {
 
-  print_head "Install Node.js"
-  yum install nodejs -y &>>${log_file}
-  status_check $?
-
-  print_head "Create Roboshop ${component}"
+print_head "Create Roboshop ${component}"
   id roboshop &>>{log_file}
   if [ $? -ne 0 ]; then
    useradd roboshop &>>${log_file}
@@ -70,6 +69,19 @@ nodejs() {
   unzip /tmp/${component}.zip &>>${log_file}
   status_check $?
 
+}
+nodejs() {
+
+  print_head " Configure the Repo"
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
+  status_check $?
+
+  print_head "Install Node.js"
+  yum install nodejs -y &>>${log_file}
+  status_check $?
+
+  app_prereq_setup
+
   print_head "Installing Nodejs dependencies"
   npm install &>>${log_file}
   status_check $?
@@ -91,4 +103,22 @@ nodejs() {
   status_check $?
 
 schema_setup
+}
+
+java () {
+  print_head "Install maven"
+  yum install maven -y
+  status_check $?
+  print_head "Add Roboshop user"
+
+  app_prereq_setup
+
+  mvn clean package
+  mv target/shipping-1.0.jar shipping.jar
+  schema_setup
+  systemctl daemon-reload
+  systemctl enable shipping
+  systemctl start shipping
+
+
 }

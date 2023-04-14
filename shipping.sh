@@ -1,3 +1,6 @@
 source common.sh
 
-yum install maven -y
+component=shipping
+schema_type="mysql"
+
+java
