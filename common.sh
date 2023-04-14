@@ -134,7 +134,7 @@ java() {
 python() {
 
   print_head "Install Python"
-    yum yum install python36 gcc python3-devel -y &>>${log_file}
+    yum install python36 gcc python3-devel -y &>>${log_file}
     status_check $?
     print_head "Add Roboshop user"
 
