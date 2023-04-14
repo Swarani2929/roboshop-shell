@@ -162,5 +162,10 @@ golang() {
     go build &>>{log_file}
     status_check $?
 
+    #systemd setup function
+    systemd_setup
+
+
+
 
 }
