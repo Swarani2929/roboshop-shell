@@ -17,21 +17,21 @@ else
 fi
 }
 systemd_setup() {
-   print_head "Copy systemd service file"
-    cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
-    status_check $?
+     print_head "Copy SystemD Service File"
+     cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+     status_check $?
 
-    print_head "Reload systemd"
-    systemctl daemon-reload &>>${log_file}
-    status_check $?
+     print_head "Reload SystemD"
+     systemctl daemon-reload &>>${log_file}
+     status_check $?
 
-    print_head "Enable ${component} Service"
-    systemctl enable ${component} &>>${log_file}
-    status_check $?
+     print_head "Enable ${component} Service "
+     systemctl enable ${component} &>>${log_file}
+     status_check $?
 
-    print_head "Enable ${component} Service"
-    systemctl restart ${component} &>>${log_file}
-    status_check $?
+     print_head "Start ${component} Service"
+     systemctl restart ${component} &>>${log_file}
+     status_check $?
 }
 schema_setup() {
 
