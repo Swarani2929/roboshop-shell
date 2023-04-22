@@ -54,7 +54,7 @@ schema_setup() {
     status_check $?
 
     print_head "Load Schema"
-    mysql -h mysql.devops25.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>${log_file}
+    mysql -h mysql-dev.devops25.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>${log_file}
     status_check $?
 
   fi
